@@ -72,7 +72,7 @@ namespace createPfxFileInCsharp
 
             // selfsign certificate
             Org.BouncyCastle.X509.X509Certificate certificate = certificateGenerator.Generate(issuerPrivKey, random);
-
+            
 
             // correcponding private key
             PrivateKeyInfo info = PrivateKeyInfoFactory.CreatePrivateKeyInfo(subjectKeyPair.Private);
@@ -80,6 +80,7 @@ namespace createPfxFileInCsharp
 
             // merge into X509Certificate2
             X509Certificate2 x509 = new X509Certificate2(certificate.GetEncoded());
+            bool isThisCertHasPrivateKey = x509.HasPrivateKey;
 
             Asn1Sequence seq = (Asn1Sequence)Asn1Object.FromByteArray(info.PrivateKeyData.GetOctets());
             if (seq.Count != 9)
@@ -91,8 +92,11 @@ namespace createPfxFileInCsharp
             RsaPrivateCrtKeyParameters rsaparams = new RsaPrivateCrtKeyParameters(
                 rsa.Modulus, rsa.PublicExponent, rsa.PrivateExponent, rsa.Prime1, rsa.Prime2, rsa.Exponent1, rsa.Exponent2, rsa.Coefficient);
 
-            x509.PrivateKey = ToDotNetKey(rsaparams); //x509.PrivateKey = DotNetUtilities.ToRSA(rsaparams);
-            return x509;
+            //x509.PrivateKey = ToDotNetKey(rsaparams); //x509.PrivateKey = DotNetUtilities.ToRSA(rsaparams);
+
+            X509Certificate2 finalX509 = RSACertificateExtensions.CopyWithPrivateKey(x509, (RSA)ToDotNetKey(rsaparams));
+            isThisCertHasPrivateKey = finalX509.HasPrivateKey;
+            return finalX509;
 
         }
 
@@ -169,7 +173,7 @@ namespace createPfxFileInCsharp
             // selfsign certificate
             Org.BouncyCastle.X509.X509Certificate certificate = certificateGenerator.Generate(issuerKeyPair.Private, random);
             X509Certificate2 x509 = new X509Certificate2(certificate.GetEncoded());
-
+            bool test = x509.HasPrivateKey;
             CaPrivateKey = issuerKeyPair.Private;
 
             return x509;
