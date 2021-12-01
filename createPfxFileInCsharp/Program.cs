@@ -17,48 +17,40 @@ namespace createPfxFileInCsharp
         {
             // Test for way1
 
-            AsymmetricKeyParameter caPrivateKey = null;
-            var caCert = CreateCertWay1.GenerateCACertificate("CN=MyROOTCA", ref caPrivateKey);
-            CreateCertWay1.addCertToStore(caCert, StoreName.Root, StoreLocation.CurrentUser);
-
-            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate("CN=127.0.0.1", "CN=MyROOTCA", caPrivateKey);
-
-            var p12 = clientCert.Export(X509ContentType.Pfx);
-            CreateCertWay2.ByteArrayToFile("thuanpv.pfx", p12);
-
-            CreateCertWay1.addCertToStore(new X509Certificate2(p12, (string)null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet), StoreName.My, StoreLocation.CurrentUser);
-
+            CreateCAAndClientCertWay1("test1.cer", "test1.pfx");
 
             // Test for way2
 
-            return;
-            Console.WriteLine("Hello World!");
+            // Test for way3
+            CreatePfxWay3();
+
+
+        }
+
+        public static void CreatePfxWay3()
+        {
+            byte[] newPfxData = CreateCertWay3.GeneratePFXFile("Evergreen", "Evergreen", "evergreen@egt.vn", "Ha Noi", "Ha Noi", "Nguyen Van A", "VN").Export(X509ContentType.Pfx, "12345678");
+            CreateCertWay2.ByteArrayToFile("way3.pfx", newPfxData);
+        }
+
+        public static void CreatePfxFileWay2()
+        {
             X509Certificate2 certtemp = CreateCertWay2.GenerateCertificate("Pham Van Thuan");
             byte[] data = certtemp.Export(X509ContentType.Pfx, "12345678");
             CreateCertWay2.ByteArrayToFile("thuanpv.pfx", data);
+        }
+        public static void CreateCAAndClientCertWay1(string fileNameCer, string fileNamePfx, string subjectNameCA="CN=EvergreenCA", string subjectNameClient="CN=person1", string IssuerName = "CN=EvergreenCA", string passwordForPFX = "12345678", bool isStoreToCertStore = false)
+        {
+            AsymmetricKeyParameter caPrivateKey = null;
+            var caCert = CreateCertWay1.GenerateCACertificate(subjectNameCA, ref caPrivateKey);
+            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate(subjectNameClient, IssuerName, caPrivateKey);
+            var p12 = clientCert.Export(X509ContentType.Pfx, passwordForPFX);
 
-            string certPath = "test.pfx";
-            string certPass = "11111111";
+            CreateCertWay2.ByteArrayToFile(fileNameCer, caCert.RawData);
+            CreateCertWay2.ByteArrayToFile(fileNamePfx, p12);
 
-            // Create a collection object and populate it using the PFX file
-            X509Certificate2Collection collection = new X509Certificate2Collection();
-            collection.Import(certPath, certPass, X509KeyStorageFlags.PersistKeySet);
-
-            foreach (X509Certificate2 cert in collection)
-            {
-                Console.WriteLine("Subject is: '{0}'", cert.Subject);
-                Console.WriteLine("Issuer is:  '{0}'", cert.Issuer);
-
-                // Import the certificate into an X509Store object
-                var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-                store.Open(OpenFlags.ReadWrite);
-                if (!store.Certificates.Contains(cert))
-                {
-                    store.Add(cert);
-                }
-                store.Close();
-            }
-
+            if (isStoreToCertStore) CreateCertWay1.addCertToStore(caCert, StoreName.Root, StoreLocation.CurrentUser);
+            if (isStoreToCertStore) CreateCertWay1.addCertToStore(new X509Certificate2(p12, (string)null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet), StoreName.My, StoreLocation.CurrentUser);
         }
 
     }

@@ -20,6 +20,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace createPfxFileInCsharp
 {
@@ -36,6 +37,10 @@ namespace createPfxFileInCsharp
 
             // The Certificate Generator
             X509V3CertificateGenerator certificateGenerator = new X509V3CertificateGenerator();
+
+            // Key Usage for this cert via cert generator
+            var keyUsage1 = new KeyUsage(KeyUsage.DigitalSignature | KeyUsage.KeyEncipherment);
+            certificateGenerator.AddExtension(X509Extensions.KeyUsage.Id, false, keyUsage1);
 
             // Serial Number
             BigInteger serialNumber = BigIntegers.CreateRandomInRange(BigInteger.One, BigInteger.ValueOf(Int64.MaxValue), random);
