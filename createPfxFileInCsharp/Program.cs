@@ -24,6 +24,7 @@ namespace createPfxFileInCsharp
             var clientCert = CreateCertWay1.GenerateSelfSignedCertificate("CN=127.0.0.1", "CN=MyROOTCA", caPrivateKey);
 
             var p12 = clientCert.Export(X509ContentType.Pfx);
+            CreateCertWay2.ByteArrayToFile("thuanpv.pfx", p12);
 
             CreateCertWay1.addCertToStore(new X509Certificate2(p12, (string)null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet), StoreName.My, StoreLocation.CurrentUser);
 
