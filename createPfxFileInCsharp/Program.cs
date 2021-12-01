@@ -15,10 +15,26 @@ namespace createPfxFileInCsharp
     {
         static void Main(string[] args)
         {
+            // Test for way1
+
+            AsymmetricKeyParameter caPrivateKey = null;
+            var caCert = CreateCertWay1.GenerateCACertificate("CN=MyROOTCA", ref caPrivateKey);
+            CreateCertWay1.addCertToStore(caCert, StoreName.Root, StoreLocation.CurrentUser);
+
+            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate("CN=127.0.0.1", "CN=MyROOTCA", caPrivateKey);
+
+            var p12 = clientCert.Export(X509ContentType.Pfx);
+
+            CreateCertWay1.addCertToStore(new X509Certificate2(p12, (string)null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet), StoreName.My, StoreLocation.CurrentUser);
+
+
+            // Test for way2
+
+            return;
             Console.WriteLine("Hello World!");
-            X509Certificate2 certtemp = GenerateCertificate("Pham Van Thuan");
+            X509Certificate2 certtemp = CreateCertWay2.GenerateCertificate("Pham Van Thuan");
             byte[] data = certtemp.Export(X509ContentType.Pfx, "12345678");
-            ByteArrayToFile("thuanpv.pfx", data);
+            CreateCertWay2.ByteArrayToFile("thuanpv.pfx", data);
 
             string certPath = "test.pfx";
             string certPass = "11111111";
@@ -44,47 +60,5 @@ namespace createPfxFileInCsharp
 
         }
 
-        static X509Certificate2 GenerateCertificate(string certName)
-        {
-            var keypairgen = new RsaKeyPairGenerator();
-            keypairgen.Init(new KeyGenerationParameters(new SecureRandom(new CryptoApiRandomGenerator()), 2048));
-
-            var keypair = keypairgen.GenerateKeyPair();
-
-            var gen = new X509V3CertificateGenerator();
-
-            var CN = new X509Name("CN=" + certName);
-            var IDN = new X509Name("CN=iGreens Company");
-            var SN = BigInteger.ProbablePrime(120, new Random());
-
-            gen.SetSerialNumber(SN);
-            gen.SetSubjectDN(CN);
-            gen.SetIssuerDN(IDN);
-            gen.SetNotAfter(DateTime.Now.AddYears(30));
-            gen.SetNotBefore(DateTime.Now.Subtract(new TimeSpan(0, 0, 0, 0)));
-            gen.SetSignatureAlgorithm("SHA256WithRSA");
-            gen.SetPublicKey(keypair.Public);
-
-            var newCert = gen.Generate(keypair.Private);
-
-            return new X509Certificate2(DotNetUtilities.ToX509Certificate(newCert));
-        }
-
-        static bool ByteArrayToFile(string fileName, byte[] byteArray)
-        {
-            try
-            {
-                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-                {
-                    fs.Write(byteArray, 0, byteArray.Length);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in process: {0}", ex);
-                return false;
-            }
-        }
     }
 }
