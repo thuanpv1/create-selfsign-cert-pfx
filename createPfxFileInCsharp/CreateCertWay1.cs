@@ -27,7 +27,7 @@ namespace createPfxFileInCsharp
     class CreateCertWay1
     {
 
-        public static X509Certificate2 GenerateSelfSignedCertificate(string subjectName, string issuerName, AsymmetricKeyParameter issuerPrivKey)
+        public static X509Certificate2 GenerateSelfSignedCertificate(string subjectName, string issuerName, AsymmetricKeyParameter issuerPrivKey, int yearOfValid)
         {
             const int keyStrength = 2048;
 
@@ -58,7 +58,7 @@ namespace createPfxFileInCsharp
 
             // Valid For
             DateTime notBefore = DateTime.UtcNow.Date;
-            DateTime notAfter = notBefore.AddYears(2);
+            DateTime notAfter = notBefore.AddYears(yearOfValid);
 
             certificateGenerator.SetNotBefore(notBefore);
             certificateGenerator.SetNotAfter(notAfter);
@@ -131,7 +131,7 @@ namespace createPfxFileInCsharp
             return rsaProvider;
         }
 
-        public static X509Certificate2 GenerateCACertificate(string subjectName, ref AsymmetricKeyParameter CaPrivateKey)
+        public static X509Certificate2 GenerateCACertificate(string subjectName, ref AsymmetricKeyParameter CaPrivateKey, int yearOfValid)
         {
             const int keyStrength = 2048;
 
@@ -158,7 +158,7 @@ namespace createPfxFileInCsharp
 
             // Valid For
             DateTime notBefore = DateTime.UtcNow.Date;
-            DateTime notAfter = notBefore.AddYears(2);
+            DateTime notAfter = notBefore.AddYears(yearOfValid);
 
             certificateGenerator.SetNotBefore(notBefore);
             certificateGenerator.SetNotAfter(notAfter);

@@ -17,7 +17,7 @@ namespace createPfxFileInCsharp
         {
             // Test for way1
 
-            CreateCAAndClientCertWay1("test1.cer", "test1.pfx");
+            CreateCAAndClientCertWay1("test1.cer", "test1.pfx", subjectNameCA: "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", subjectNameClient: "CN=Pham Van Thuan,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", IssuerName: "CN=Evergreen,O=Evergreen,C=VN");
 
             // Test for way2
 
@@ -42,8 +42,8 @@ namespace createPfxFileInCsharp
         public static void CreateCAAndClientCertWay1(string fileNameCer, string fileNamePfx, string subjectNameCA="CN=EvergreenCA", string subjectNameClient="CN=person1", string IssuerName = "CN=EvergreenCA", string passwordForPFX = "12345678", bool isStoreToCertStore = false)
         {
             AsymmetricKeyParameter caPrivateKey = null;
-            var caCert = CreateCertWay1.GenerateCACertificate(subjectNameCA, ref caPrivateKey);
-            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate(subjectNameClient, IssuerName, caPrivateKey);
+            var caCert = CreateCertWay1.GenerateCACertificate(subjectNameCA, ref caPrivateKey, 20);
+            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate(subjectNameClient, IssuerName, caPrivateKey, 20);
             var p12 = clientCert.Export(X509ContentType.Pfx, passwordForPFX);
 
             CreateCertWay2.ByteArrayToFile(fileNameCer, caCert.RawData);
