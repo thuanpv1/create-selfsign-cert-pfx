@@ -43,7 +43,7 @@ namespace createPfxFileInCsharp
         {
             AsymmetricKeyParameter caPrivateKey = null;
             var caCert = CreateCertWay1.GenerateCACertificate(subjectNameCA, ref caPrivateKey, 20);
-            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate(subjectNameClient, IssuerName, caPrivateKey, 20);
+            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate(subjectNameClient, subjectNameCA, caPrivateKey, 20);
             var p12 = clientCert.Export(X509ContentType.Pfx, passwordForPFX);
 
             CreateCertWay2.ByteArrayToFile(fileNameCer, caCert.RawData);
