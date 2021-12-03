@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
-    <StartupObject />
+    <StartupObject>createPfxFileInCsharp.TestUtil</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,3 +9,5 @@ D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Debug\netcoreap
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Debug\netcoreapp2.2\createPfxFileInCsharp.csproj.CopyComplete
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Debug\netcoreapp2.2\createPfxFileInCsharp.dll
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Debug\netcoreapp2.2\createPfxFileInCsharp.pdb
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.runtimeconfig.json
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.runtimeconfig.dev.json
