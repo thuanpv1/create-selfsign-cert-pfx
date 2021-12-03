@@ -17,7 +17,7 @@ namespace createPfxFileInCsharp
         {
             // Test for way1
 
-            //CreateCAAndClientCertWay1("CACertificate.cer", "ClientCertificate.pfx", subjectNameCA: "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", subjectNameClient: "CN=Tran Van Thiem,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", IssuerName: "CN=Evergreen,O=Evergreen,C=VN");
+            //CreateCAAndClientCertWay1("iGreensCACertificate.cer", "iGreenClientCertificate.pfx", privateKeyPemFilePath: "iGreens_CA_PrivateKey_For_CreateOtherClientPFX.pem", subjectNameCA: "CN=iGreens,L=Hanoi,OU=iGreens,O=iGreens,C=VN", subjectNameClient: "CN=Tran Van Thiem,L=Hanoi,OU=iGreens,O=iGreens,C=VN");
 
             // Test for way2
 
@@ -25,20 +25,19 @@ namespace createPfxFileInCsharp
             //CreatePfxWay3();
 
             // Test for way4
-            CreatePfxWay4FromPrivateKey();
+            CreatePfxWay4FromPrivateKey("iGreens_CA_PrivateKey_For_CreateOtherClientPFX.pem", outputFileNameIfWritten: "test.pfx", isWrittenOutputToFile: true);
         }
 
 
-        public static void CreatePfxWay4FromPrivateKey()
+        public static byte[] CreatePfxWay4FromPrivateKey(string privateKeyPath, string outputFileNameIfWritten = "clientCert.pfx", bool isWrittenOutputToFile = false, string soCMND="soCMND", string hoVaTen="Nguyen Van A", string diaChi = "Hanoi")
         {
-            string privateKeyPath = "CA_PrivateKey_For_CreateOtherClientPFX.pem";
             string privateKeyStr = File.ReadAllText(privateKeyPath);
             AsymmetricKeyParameter privateKey = ReadPublicKey(privateKeyStr);
-            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate("CN=Tran Van Thiem,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", privateKey, 20);
+            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate("CN=" + hoVaTen + "|" + soCMND + ",L=" + diaChi + ",OU=iGreens,O=iGreens,C=VN", "CN=iGreens,L=Hanoi,OU=iGreens,O=iGreens,C=VN", privateKey, 20);
             var p12 = clientCert.Export(X509ContentType.Pfx, "12345678");
-            CreateCertWay2.ByteArrayToFile("clientCert.pfx", p12);
-            Console.WriteLine("ok");
+            if (isWrittenOutputToFile) CreateCertWay2.ByteArrayToFile(outputFileNameIfWritten, p12);
 
+            return p12;
         }
         public static Org.BouncyCastle.Crypto.AsymmetricKeyParameter ReadPublicKey(string publicKey)
         {
@@ -105,10 +104,10 @@ namespace createPfxFileInCsharp
             byte[] data = certtemp.Export(X509ContentType.Pfx, "12345678");
             CreateCertWay2.ByteArrayToFile("thuanpv.pfx", data);
         }
-        public static void CreateCAAndClientCertWay1(string fileNameCer, string fileNamePfx, string subjectNameCA="CN=EvergreenCA", string subjectNameClient="CN=person1", string IssuerName = "CN=EvergreenCA", string passwordForPFX = "12345678", bool isStoreToCertStore = false)
+        public static void CreateCAAndClientCertWay1(string fileNameCer, string fileNamePfx, string privateKeyPemFilePath, string subjectNameCA="CN=EvergreenCA", string subjectNameClient="CN=person1", string passwordForPFX = "12345678", bool isStoreToCertStore = false)
         {
             AsymmetricKeyParameter caPrivateKey = null;
-            var caCert = CreateCertWay1.GenerateCACertificate(subjectNameCA, ref caPrivateKey, 20);
+            var caCert = CreateCertWay1.GenerateCACertificate(subjectNameCA, ref caPrivateKey, 20, privateKeyPemFilePath: privateKeyPemFilePath);
             var clientCert = CreateCertWay1.GenerateSelfSignedCertificate(subjectNameClient, subjectNameCA, caPrivateKey, 20);
             var p12 = clientCert.Export(X509ContentType.Pfx, passwordForPFX);
 

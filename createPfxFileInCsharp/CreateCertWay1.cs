@@ -132,7 +132,7 @@ namespace createPfxFileInCsharp
             return rsaProvider;
         }
 
-        public static X509Certificate2 GenerateCACertificate(string subjectName, ref AsymmetricKeyParameter CaPrivateKey, int yearOfValid)
+        public static X509Certificate2 GenerateCACertificate(string subjectName, ref AsymmetricKeyParameter CaPrivateKey, int yearOfValid, string privateKeyPemFilePath = "CA_PrivateKey_For_CreateOtherClientPFX.pem")
         {
             const int keyStrength = 2048;
 
@@ -193,7 +193,7 @@ namespace createPfxFileInCsharp
             builder.AppendLine(Convert.ToBase64String(serializedPrivateBytes, Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END PRIVATE KEY-----");
             Console.WriteLine(builder.ToString());
-            File.WriteAllText("CA_PrivateKey_For_CreateOtherClientPFX.pem", builder.ToString());
+            File.WriteAllText(privateKeyPemFilePath, builder.ToString());
 
             return x509;
             //return issuerKeyPair.Private;
