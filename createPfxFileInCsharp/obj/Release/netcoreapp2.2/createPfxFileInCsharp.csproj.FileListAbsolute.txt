@@ -1,0 +1,12 @@
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Release\netcoreapp2.2\createPfxFileInCsharp.deps.json
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Release\netcoreapp2.2\createPfxFileInCsharp.runtimeconfig.json
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Release\netcoreapp2.2\createPfxFileInCsharp.runtimeconfig.dev.json
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Release\netcoreapp2.2\createPfxFileInCsharp.dll
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Release\netcoreapp2.2\createPfxFileInCsharp.pdb
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Release\netcoreapp2.2\BouncyCastle.Crypto.dll
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Release\netcoreapp2.2\createPfxFileInCsharp.csproj.CoreCompileInputs.cache
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Release\netcoreapp2.2\createPfxFileInCsharp.AssemblyInfoInputs.cache
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Release\netcoreapp2.2\createPfxFileInCsharp.AssemblyInfo.cs
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Release\netcoreapp2.2\createPfxFileInCsharp.csproj.CopyComplete
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Release\netcoreapp2.2\createPfxFileInCsharp.dll
+D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\obj\Release\netcoreapp2.2\createPfxFileInCsharp.pdb

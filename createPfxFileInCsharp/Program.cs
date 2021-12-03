@@ -17,7 +17,7 @@ namespace createPfxFileInCsharp
         {
             // Test for way1
 
-            CreateCAAndClientCertWay1("test1.cer", "test1.pfx", subjectNameCA: "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", subjectNameClient: "CN=Pham Van Thuan,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", IssuerName: "CN=Evergreen,O=Evergreen,C=VN");
+            CreateCAAndClientCertWay1("CACertificate.cer", "ClientCertificate.pfx", subjectNameCA: "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", subjectNameClient: "CN=Tran Van Thiem,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", IssuerName: "CN=Evergreen,O=Evergreen,C=VN");
 
             // Test for way2
 

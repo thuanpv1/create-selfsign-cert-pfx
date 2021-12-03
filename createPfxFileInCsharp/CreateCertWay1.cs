@@ -21,6 +21,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.IO;
 
 namespace createPfxFileInCsharp
 {
@@ -180,6 +181,19 @@ namespace createPfxFileInCsharp
             X509Certificate2 x509 = new X509Certificate2(certificate.GetEncoded());
             bool test = x509.HasPrivateKey;
             CaPrivateKey = issuerKeyPair.Private;
+
+            // thuan added here
+            PrivateKeyInfo privateKeyInfo = PrivateKeyInfoFactory.CreatePrivateKeyInfo(CaPrivateKey);
+            byte[] serializedPrivateBytes = privateKeyInfo.ToAsn1Object().GetDerEncoded();
+            // Convert to Base64 ..
+            string serializedPrivateString = Convert.ToBase64String(serializedPrivateBytes);
+
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine("-----BEGIN PRIVATE KEY-----");
+            builder.AppendLine(Convert.ToBase64String(serializedPrivateBytes, Base64FormattingOptions.InsertLineBreaks));
+            builder.AppendLine("-----END PRIVATE KEY-----");
+            Console.WriteLine(builder.ToString());
+            File.WriteAllText("CA_PrivateKey_For_CreateOtherClientPFX.pem", builder.ToString());
 
             return x509;
             //return issuerKeyPair.Private;
