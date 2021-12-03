@@ -17,15 +17,81 @@ namespace createPfxFileInCsharp
         {
             // Test for way1
 
-            CreateCAAndClientCertWay1("CACertificate.cer", "ClientCertificate.pfx", subjectNameCA: "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", subjectNameClient: "CN=Tran Van Thiem,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", IssuerName: "CN=Evergreen,O=Evergreen,C=VN");
+            //CreateCAAndClientCertWay1("CACertificate.cer", "ClientCertificate.pfx", subjectNameCA: "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", subjectNameClient: "CN=Tran Van Thiem,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", IssuerName: "CN=Evergreen,O=Evergreen,C=VN");
 
             // Test for way2
 
             // Test for way3
-            CreatePfxWay3();
+            //CreatePfxWay3();
 
+            // Test for way4
+            CreatePfxWay4FromPrivateKey();
+        }
+
+
+        public static void CreatePfxWay4FromPrivateKey()
+        {
+            string privateKeyPath = "CA_PrivateKey_For_CreateOtherClientPFX.pem";
+            string privateKeyStr = File.ReadAllText(privateKeyPath);
+            AsymmetricKeyParameter privateKey = ReadPublicKey(privateKeyStr);
+            var clientCert = CreateCertWay1.GenerateSelfSignedCertificate("CN=Tran Van Thiem,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", "CN=Evergreen,L=Hanoi,OU=Evergreen,O=Evergreen,C=VN", privateKey, 20);
+            var p12 = clientCert.Export(X509ContentType.Pfx, "12345678");
+            CreateCertWay2.ByteArrayToFile("clientCert.pfx", p12);
+            Console.WriteLine("ok");
 
         }
+        public static Org.BouncyCastle.Crypto.AsymmetricKeyParameter ReadPublicKey(string publicKey)
+        {
+            Org.BouncyCastle.Crypto.AsymmetricKeyParameter keyParameter = null;
+
+            using (System.IO.TextReader reader = new System.IO.StringReader(publicKey))
+            {
+                Org.BouncyCastle.OpenSsl.PemReader pemReader =
+                    new Org.BouncyCastle.OpenSsl.PemReader(reader);
+
+                object obj = pemReader.ReadObject();
+
+                if ((obj is Org.BouncyCastle.Crypto.AsymmetricCipherKeyPair))
+                    throw new System.ArgumentException("The given publicKey is actually a private key.", "publicKey");
+
+                if (!(obj is Org.BouncyCastle.Crypto.AsymmetricKeyParameter))
+                    throw new System.ArgumentException("The given publicKey is not a valid assymetric key.", "publicKey");
+
+                keyParameter = (Org.BouncyCastle.Crypto.AsymmetricKeyParameter)obj;
+            }
+
+            return keyParameter;
+        } // End Function ReadPublicKey 
+        public static Org.BouncyCastle.Crypto.AsymmetricKeyParameter ReadPrivateKey(string privateKey)
+        {
+            Org.BouncyCastle.Crypto.AsymmetricCipherKeyPair keyPair = null;
+
+            using (System.IO.TextReader reader = new System.IO.StringReader(privateKey))
+            {
+                Org.BouncyCastle.OpenSsl.PemReader pemReader =
+                    new Org.BouncyCastle.OpenSsl.PemReader(reader);
+
+                object obj = pemReader.ReadObject();
+
+                if (obj is Org.BouncyCastle.Crypto.AsymmetricKeyParameter)
+                    throw new System.ArgumentException("The given privateKey is a public key, not a privateKey...", "privateKey");
+
+                if (!(obj is Org.BouncyCastle.Crypto.AsymmetricCipherKeyPair))
+                    throw new System.ArgumentException("The given privateKey is not a valid assymetric key.", "privateKey");
+
+                keyPair = (Org.BouncyCastle.Crypto.AsymmetricCipherKeyPair)obj;
+            } // End using reader 
+
+            // Org.BouncyCastle.Crypto.AsymmetricKeyParameter priv = keyPair.Private;
+            // Org.BouncyCastle.Crypto.AsymmetricKeyParameter pub = keyPair.Public;
+
+            // Note: 
+            // cipher.Init(false, key);
+            // !!!
+
+            return keyPair.Private;
+        } // End Function ReadPrivateKey
+
 
         public static void CreatePfxWay3()
         {
