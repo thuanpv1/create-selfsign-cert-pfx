@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "createPfxFileInCsharp", "createPfxFileInCsharp\createPfxFileInCsharp.csproj", "{5279B30E-AC49-4BA2-A02B-78F8DC0C2892}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertUtilEvergreen", "CertUtilEvergreen\CertUtilEvergreen.csproj", "{CDF2DFCA-FF5A-4B48-86AF-E5F1266F900F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5279B30E-AC49-4BA2-A02B-78F8DC0C2892}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5279B30E-AC49-4BA2-A02B-78F8DC0C2892}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5279B30E-AC49-4BA2-A02B-78F8DC0C2892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF2DFCA-FF5A-4B48-86AF-E5F1266F900F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF2DFCA-FF5A-4B48-86AF-E5F1266F900F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF2DFCA-FF5A-4B48-86AF-E5F1266F900F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF2DFCA-FF5A-4B48-86AF-E5F1266F900F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

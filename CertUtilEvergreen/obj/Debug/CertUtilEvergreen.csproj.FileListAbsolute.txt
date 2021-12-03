@@ -1,0 +1,8 @@
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\bin\Debug\CertUtilEvergreen.dll
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\bin\Debug\CertUtilEvergreen.pdb
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\bin\Debug\BouncyCastle.Crypto.dll
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\obj\Debug\CertUtilEvergreen.csprojAssemblyReference.cache
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\obj\Debug\CertUtilEvergreen.csproj.CoreCompileInputs.cache
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\obj\Debug\CertUtilEvergreen.csproj.CopyComplete
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\obj\Debug\CertUtilEvergreen.dll
+D:\EverGreenTech\createPfxFileInCsharp\CertUtilEvergreen\obj\Debug\CertUtilEvergreen.pdb
