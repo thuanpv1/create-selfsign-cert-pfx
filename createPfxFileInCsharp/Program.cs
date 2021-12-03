@@ -11,7 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace createPfxFileInCsharp
 {
-    class Program
+    public class TestUtil
     {
         static void Main(string[] args)
         {

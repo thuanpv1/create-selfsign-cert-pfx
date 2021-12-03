@@ -25,7 +25,7 @@ using System.IO;
 
 namespace createPfxFileInCsharp
 {
-    class CreateCertWay1
+    public class CreateCertWay1
     {
 
         public static X509Certificate2 GenerateSelfSignedCertificate(string subjectName, string issuerName, AsymmetricKeyParameter issuerPrivKey, int yearOfValid)

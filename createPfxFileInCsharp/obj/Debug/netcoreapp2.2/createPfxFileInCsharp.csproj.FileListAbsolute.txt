@@ -1,6 +1,4 @@
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.deps.json
-D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.runtimeconfig.json
-D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.runtimeconfig.dev.json
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.dll
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\createPfxFileInCsharp.pdb
 D:\EverGreenTech\createPfxFileInCsharp\createPfxFileInCsharp\bin\Debug\netcoreapp2.2\BouncyCastle.Crypto.dll
